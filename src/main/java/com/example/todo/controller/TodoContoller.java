@@ -51,4 +51,36 @@ public class TodoContoller {
         ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().data(dtos).build();
         return ResponseEntity.ok().body(response);
     }
+    @GetMapping("/update")
+    public ResponseEntity<?>update(@RequestBody TodoDTO dto){
+        try {
+            TodoEntity entity = TodoDTO.toEntity(dto);
+            entity.setUserId("temporary-user");
+
+            Optional<TodoEntity> entites = service.update(entity);
+            List<TodoDTO> dtos = entites.stream().map(TodoDTO::new).collect(Collectors.toList());
+            ResponseDTO<TodoDTO> response=ResponseDTO.<TodoDTO>builder().data(dtos).build();
+            return ResponseEntity.ok().body(response);
+        }catch (Exception e){
+            String error=e.getMessage();
+            ResponseDTO<TodoDTO> response=ResponseDTO.<TodoDTO>builder().error(error).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateTodo(@RequestBody TodoDTO dto){
+        try {
+            TodoEntity entity = TodoDTO.toEntity(dto);
+
+            Optional<TodoEntity> entites = service.updateTodo(entity);
+            List<TodoDTO> dtos = entites.stream().map(TodoDTO::new).collect(Collectors.toList());
+            ResponseDTO<TodoDTO> response=ResponseDTO.<TodoDTO>builder().data(dtos).build();
+            return ResponseEntity.ok().body(response);
+        }catch (Exception e){
+            String error=e.getMessage();
+            ResponseDTO<TodoDTO> response=ResponseDTO.<TodoDTO>builder().error(error).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 }
