@@ -8,22 +8,24 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Data@Entity
-@Builder @NoArgsConstructor
+@Data
+@Entity
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class UserEntity {
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid",strategy = "uuid")
-    private String id;
-
-    @Column(nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+	@Id
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid",strategy="uuid")
+	private String id;
+	
+	@Column(nullable=false)
+	private String username;
+	
+	@Column(nullable=false)
+	private String email;
+	
+	@Column(nullable=false)
+	private String password;
 }

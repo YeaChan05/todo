@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ResponseDTO<T> {
-    private String error;
-    private List<T> data;
+public class ResponseDTO<T>{
+	private String error;
+	private List<T> data;
 }
